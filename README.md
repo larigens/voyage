@@ -50,9 +50,9 @@ For support, email larigens@gmail.com.
   
 - [Day.js](https://day.js.org/docs/en/display/format)
 
--[API Keys](https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys)
+- [API Keys](https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys)
 
--[Open Weather](https://openweathermap.org/forecast5)
+- [Open Weather](https://openweathermap.org/forecast5)
 
 ## Feedback
 

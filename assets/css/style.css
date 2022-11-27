@@ -1,7 +1,50 @@
-* {
-    font-family: 'Moon Dance', cursive;
+:root {
+    --dark-shades: #04080b;
+    --dark-accent: #FF4841;
+    --main-brand: #8E5FCA;
+    --light-accent: #BB5ECA;
+    --light-shades: #C0D5F7;
+    --light: #f1f5fc;
+}
+
+body {
+    background-color: var(--dark-shades);
+    font-family: 'Cormorant Garamond', serif;
+}
+
+header {
+    display: inline-flex;
+    height: 28vh;
+}
+
+figure {
+    margin: 60px 90px 10px 60px;
+    box-shadow: 0 2px 15px 3px var(--main-brand);
+    border-radius: 20px;
 }
 
 img {
     border-radius: 20px;
+    width: 140px;
+    height: 142px;
+}
+
+h1 {
+    margin-top: 119px;
+    letter-spacing: 0.2rem;
+    color: var(--main-brand);
+    font-family: 'Moon Dance', cursive;
+    font-size: 90px;
+}
+
+header p {
+    margin-top: 30px;
+    margin-left: 690px;
+    font-size: 20px;
+    letter-spacing: 0.11rem;
+    color: var(--light-accent);
+}
+
+footer {
+    color: var(--main-brand);
 }
