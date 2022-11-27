@@ -2,7 +2,7 @@
 
 ## Description
 
-Voyage is a weather app for travelers who want to keep up with the local weather wherever they are. We're here to help you plan your next adventure. Find current conditions, as well as 5-day forecasts on locations around the globe!
+Voyage is a weather app for travelers who want to keep up with the local weather wherever they are. We're here to help you plan your next adventure by providing current conditions, as well as 5-day forecasts on locations around the globe!
 
 ## Installation
 
