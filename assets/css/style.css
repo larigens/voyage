@@ -1,20 +1,27 @@
 :root {
-    --dark-shades: #04080b;
-    --dark-accent: #FF4841;
-    --main-brand: #8E5FCA;
-    --light-accent: #BB5ECA;
-    --light-shades: #C0D5F7;
-    --light: #f1f5fc;
+    --dark-shades: rgb(4, 8, 11);
+    --dark-accent: rgb(255, 72, 65);
+    --main-brand: rgb(142, 95, 202);
+    --light-accent: rgb(187, 94, 202);
+    --light-shades: rgb(192, 213, 247);
+    --light: rgb(241, 245, 252);
+}
+
+* {
+    color: var(--dark-shades);
 }
 
 body {
-    background-color: var(--dark-shades);
+
     font-family: 'Cormorant Garamond', serif;
 }
 
 header {
+    background: linear-gradient(to bottom, var(--main-brand), var(--dark-shades));
     display: inline-flex;
     height: 28vh;
+    border-bottom: 2px solid var(--light-shades);
+    margin-bottom: 20px;
 }
 
 figure {
@@ -25,23 +32,48 @@ figure {
 
 img {
     border-radius: 20px;
-    width: 140px;
-    height: 142px;
+    width: 160px;
+    height: 160px;
 }
 
-h1 {
-    margin-top: 119px;
-    letter-spacing: 0.2rem;
+#weather-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.title {
+    margin-top: 136px;
+    letter-spacing: 0.3rem;
     color: var(--main-brand);
     font-family: 'Moon Dance', cursive;
-    font-size: 90px;
+    font-size: 110px;
 }
 
 header p {
-    margin-top: 30px;
-    margin-left: 690px;
+    margin-top: 100px;
     font-size: 20px;
     letter-spacing: 0.11rem;
+    color: var(--light-accent);
+}
+
+#myChart {
+    color: var(--dark-shades);
+}
+
+.card {
+    display: none;
+}
+
+h2 {
+    color: var(--light-accent);
+}
+
+h3,
+span {
+    color: var(--main-brand);
+}
+
+h4 {
     color: var(--light-accent);
 }
 
