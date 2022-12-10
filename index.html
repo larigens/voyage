@@ -12,12 +12,7 @@
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Moon+Dance&display=swap"
-    rel="stylesheet">
-  <!-- My CSS file -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">  <!-- My CSS file -->
   <link rel="stylesheet" href="./assets/css/style.css" />
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
@@ -72,34 +67,16 @@
 
       <!-- Dashboard -->
       <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <!-- Dashboard Header -->
-        <div class="chartjs-size-monitor">
-          <div class="chartjs-size-monitor-expand">
-            <div class=""></div>
-          </div>
-          <div class="chartjs-size-monitor-shrink">
-            <div class=""></div>
-          </div>
-        </div>
+        
+        
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h2 class="h2">Weather Dashboard</h2>
         </div>
 
-        <!-- Dashboard Cards Display (Look for modal) -->
+        <!-- Dashboard Cards Display  -->
         <div class="my-4 w-100 chartjs-render-monitor" width="2424" height="1022"
-          style="display: block; height: 511px; width: 1212px;">
-          <div id="card" class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h3 id="city-name" class="card-title"></h3>
-              <img id="weather-icon">
-              <h4 id="description" class="card-subtitle mb-2"></h4>
-              <p class="card-text">Temperature: <span id="temperature"></span></p>
-              <p class="card-text">Feels Like: <span id="feels-like"></span></p>
-              <p class="card-text">Humidity: <span id="humidity"></span></p>
-              <p class="card-text">Wind Speed: <span id="wind-speed"></span></p>
-            </div>
-          </div>
+          style="display: flex; height: 511px; width: 1212px;">
 
           <div id="day-1" class="card" style="width: 18rem;">
             <div class="card-body">
@@ -149,7 +126,6 @@
             </div>
           </div>
 
-
           <div id="day-5" class="card" style="width: 18rem;">
             <div class="card-body">
               <h3 id="city-name" class="card-title"></h3>
@@ -162,13 +138,26 @@
             </div>
           </div>
 
+          <div id="day-6" class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h3 id="city-name" class="card-title"></h3>
+              <img id="weather-icon">
+              <h4 id="description" class="card-subtitle mb-2"></h4>
+              <p class="card-text">Temperature: <span id="temperature"></span></p>
+              <p class="card-text">Feels Like: <span id="feels-like"></span></p>
+              <p class="card-text">Humidity: <span id="humidity"></span></p>
+              <p class="card-text">Wind Speed: <span id="wind-speed"></span></p>
+            </div>
+          </div>
+
         </div>
+
       </div>
   </main>
 
   <!-- Footer -->
   <footer>
-    <p>Made with &#9992 by Larissa Guilherme</p>
+    <p>Made with <span class="icon">&#9992</span> by Larissa Guilherme</p>
   </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" crossorigin="anonymous"
     referrerpolicy="no-referrer"></script>

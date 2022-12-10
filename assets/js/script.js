@@ -50,24 +50,26 @@ function displayWeather(data) {
     humidity.innerHTML = `${data.main.humidity}\%`;
     var windSpeed = document.getElementById("wind-speed");
     windSpeed.innerHTML = `${data.wind.speed} MPH`;
+
+    getForecast();
+
 }
 
-// getForecast();
 
-// function getForecast() {
+function getForecast() {
 
-//     var queryURLFuture = "https://bulk.openweathermap.org/archive/hourly_16.json.gz?appid=" + apiKey;
+    var queryURLFuture = "https://bulk.openweathermap.org/archive/hourly_16.json.gz?appid=" + apiKey;
 
-//     fetch(queryURLFuture)
-//         .then(function (response) {
-//             return response.json()
-//         })
-//         .then(function (data) {
-//             displayForecast(data);
-//         })
+    fetch(queryURLFuture)
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            displayForecast(data);
+        })
 
-// }
+}
 
-// function displayForecast(data) {
+function displayForecast(data) {
 
-// }
+}

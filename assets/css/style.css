@@ -12,8 +12,7 @@
 }
 
 body {
-
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Oswald', sans-serif;
 }
 
 header {
@@ -21,19 +20,17 @@ header {
     display: inline-flex;
     height: 28vh;
     border-bottom: 2px solid var(--light-shades);
-    margin-bottom: 20px;
 }
 
 figure {
-    margin: 60px 90px 10px 60px;
     box-shadow: 0 2px 15px 3px var(--main-brand);
     border-radius: 20px;
 }
 
 img {
     border-radius: 20px;
-    width: 160px;
-    height: 160px;
+    width: 220px;
+    height: 220px;
 }
 
 #weather-icon {
@@ -42,27 +39,29 @@ img {
 }
 
 .title {
-    margin-top: 136px;
+    margin-top: 10px;
+    margin-right: 90px;
     letter-spacing: 0.3rem;
     color: var(--main-brand);
     font-family: 'Moon Dance', cursive;
-    font-size: 110px;
+    font-size: 90px;
 }
 
 header p {
-    margin-top: 100px;
+    margin-top: 150px;
+    margin-right: 10px;
     font-size: 20px;
-    letter-spacing: 0.11rem;
+    letter-spacing: 0.2rem;
     color: var(--light-accent);
 }
 
-#myChart {
-    color: var(--dark-shades);
+#sidebarMenu {
+    background: linear-gradient(to bottom, var(--main-brand), var(--dark-shades));
 }
 
-.card {
+/* .card {
     display: none;
-}
+} */
 
 h2 {
     color: var(--light-accent);
@@ -77,6 +76,14 @@ h4 {
     color: var(--light-accent);
 }
 
+.icon {
+    font-size: 30px;
+    color: var(--light-accent);
+}
+
 footer {
+    font-size: 18px;
+    letter-spacing: 0.16rem;
+    text-align: center;
     color: var(--main-brand);
 }
