@@ -17,17 +17,18 @@ body {
 }
 
 header {
-    background: linear-gradient(to bottom, var(--main-brand), var(--dark-shades));
     display: inline-flex;
+    border-radius: 15px;
+    width: 99vw;
+    background: linear-gradient(to bottom, var(--main-brand), var(--dark-shades));
     height: 28vh;
 }
 
 header img {
-    border-radius: 20px;
-    width: 180px;
-    height: 180px;
-    padding-bottom: 8px;
-    box-shadow: 0 4px 7px 4px var(--main-brand);
+    border-radius: 100px;
+    width: 150px;
+    height: 150px;
+    box-shadow: 0 5px 8px 5px var(--main-brand);
 }
 
 .title {
@@ -69,7 +70,7 @@ header p {
 }
 
 #city:focus {
-    box-shadow: 0 4px 4px var(--light-accent);
+    box-shadow: 0 2px 8px 2px var(--light-accent);
 }
 
 #city[type=text] {
@@ -77,10 +78,11 @@ header p {
 }
 
 .btn {
-    width: 85px;
+    width: 89px;
     border: none;
     border-radius: 20px;
     outline: none;
+    box-shadow: 0 2px 5px 2px var(--light-accent);
     background: var(--dark-accent);
 }
 
@@ -141,10 +143,13 @@ h4 {
 }
 
 footer {
-    margin-top: 30px;
+    border-radius: 15px;
+    padding: 20px;
+    width: 99vw;
     font-size: 18px;
     letter-spacing: 0.16rem;
     text-align: center;
+    background: linear-gradient(to bottom, var(--main-brand), var(--dark-shades));
 }
 
 footer p,

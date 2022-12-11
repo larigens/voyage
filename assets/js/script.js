@@ -3,11 +3,48 @@ var apiKey = "1621a5fb00df3e233c5aa1c741011fd3";
 var city = $('#city');
 var dashboard = $("#dashboard");
 var today = dayjs().format('MM/DD/YYYY');
+var searchHistory = [];
+var searchEl = $("#search-history");
+var searchCity = city.val().trim();
+
+
+$(function () {
+    renderSearchHistory();
+});
+
+function renderSearchHistory() {
+    var searchHistoryArr = JSON.parse(localStorage.getItem("searchHistory"));
+
+    if (searchHistoryArr !== null) {
+        var lastSearchedIndex = searchHistoryArr.length - 1;
+        var lastSearchedCity = searchHistoryArr[lastSearchedIndex];
+        for (i = 0; i <= lastSearchedIndex; i++) {
+            var pTagSearchedCity = $('<p>');
+            pTagSearchedCity.html(`${lastSearchedCity}`);
+            searchEl.append(pTagSearchedCity);
+        }
+    }
+};
+
+// TODO: FIX DISPLAY LOCAL STORAGE
+
+function storeSearchHistory() {
+    if (!searchHistory.includes(searchCity)) {
+        searchHistory.push(searchCity);
+        var searchedCity = $('<p>')
+        searchedCity.html(`${searchCity}`);
+
+        searchEl.append(searchedCity);
+    };
+
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+    renderSearchHistory(searchHistory);
+}
 
 function getCurrWeather() { // q: The query parameter - appid: The application id or key
     var fetchBtn = $("#fetchBtn");
     fetchBtn.css("display", "none");
-    
+    storeSearchHistory();
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city.val() + "&units=imperial&appid=" + apiKey;
 
     fetch(queryURL)
@@ -17,6 +54,7 @@ function getCurrWeather() { // q: The query parameter - appid: The application i
         .then(function (data) {
             console.log(data)
             renderCurrWeather(data);
+            storeSearchHistory();
         })
 }
 
@@ -45,7 +83,7 @@ function renderCurrWeather(data) {
 
         var descriptionEl = $("<h4>");
         descriptionEl.attr('id', 'description-' + `${day}`);
-        descriptionEl.addClass("card-subtitle mb-2 description");
+        descriptionEl.addClass("card-subtitle mb-3 pb-3 description border-bottom border-2");
 
         var pTagTemp = $("<p>");
         pTagTemp.addClass("card-text");
