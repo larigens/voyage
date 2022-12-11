@@ -1,6 +1,6 @@
 :root {
     --dark-shades: rgb(4, 8, 11);
-    --dark-accent: rgb(255, 72, 65);
+    --dark-accent: rgb(171, 15, 163);
     --main-brand: rgb(142, 95, 202);
     --light-accent: rgb(187, 94, 202);
     --light-shades: rgb(192, 213, 247);
@@ -12,6 +12,7 @@
 }
 
 body {
+    background: linear-gradient(to top, var(--main-brand), var(--dark-shades));
     font-family: 'Oswald', sans-serif;
 }
 
@@ -19,32 +20,24 @@ header {
     background: linear-gradient(to bottom, var(--main-brand), var(--dark-shades));
     display: inline-flex;
     height: 28vh;
-    border-bottom: 2px solid var(--light-shades);
 }
 
-figure {
-    box-shadow: 0 2px 15px 3px var(--main-brand);
+header img {
     border-radius: 20px;
-}
-
-img {
-    border-radius: 20px;
-    width: 220px;
-    height: 220px;
-}
-
-#weather-icon {
-    width: 50px;
-    height: 50px;
+    width: 180px;
+    height: 180px;
+    padding-bottom: 8px;
+    box-shadow: 0 4px 7px 4px var(--main-brand);
 }
 
 .title {
     margin-top: 10px;
     margin-right: 90px;
-    letter-spacing: 0.3rem;
-    color: var(--main-brand);
-    font-family: 'Moon Dance', cursive;
     font-size: 90px;
+    font-family: 'Moon Dance', cursive;
+    letter-spacing: 0.3rem;
+    text-shadow: 2px 4px var(--dark-accent);
+    color: var(--main-brand);
 }
 
 header p {
@@ -52,19 +45,90 @@ header p {
     margin-right: 10px;
     font-size: 20px;
     letter-spacing: 0.2rem;
-    color: var(--light-accent);
+    color: var(--dark-accent);
 }
 
 #sidebarMenu {
-    background: linear-gradient(to bottom, var(--main-brand), var(--dark-shades));
+    border-radius: 15px;
+    height: 117vh;
+    background: linear-gradient(to top, var(--main-brand), var(--dark-shades));
 }
 
-/* .card {
-    display: none;
-} */
+.custom {
+    margin-top: 50px;
+}
+
+.nav-item p {
+    padding-left: 5px;
+    color: var(--light-shades);
+}
+
+#city {
+    border-radius: 20px;
+    width: 220px;
+}
+
+#city:focus {
+    box-shadow: 0 4px 4px var(--light-accent);
+}
+
+#city[type=text] {
+    color: var(--dark-accent);
+}
+
+.btn {
+    width: 85px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    background: var(--dark-accent);
+}
+
+.btn:hover {
+    background: var(--light-accent);
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: var(--light-shades);
+}
+
+.nav-item a:hover {
+    color: var(--dark-accent);
+}
+
+.dashboard {
+    border-radius: 15px;
+    width: 82vw;
+    background: linear-gradient(to top, var(--main-brand), var(--dark-shades));
+}
+
+.card {
+    margin: 18px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px 4px var(--main-brand);
+    width: 20rem;
+    height: 22rem;
+}
 
 h2 {
     color: var(--light-accent);
+}
+
+.date {
+    margin-left: 97px;
+    font-size: 15px;
+    color: var(--dark-accent);
+}
+
+.card-body img {
+    width: 60px;
+    height: 60px;
+}
+
+.description {
+    margin: 10px;
+    font-size: 19px;
 }
 
 h3,
@@ -76,14 +140,19 @@ h4 {
     color: var(--light-accent);
 }
 
-.icon {
-    font-size: 30px;
-    color: var(--light-accent);
-}
-
 footer {
+    margin-top: 30px;
     font-size: 18px;
     letter-spacing: 0.16rem;
     text-align: center;
-    color: var(--main-brand);
+}
+
+footer p,
+.icon {
+    color: var(--light-shades);
+}
+
+.icon {
+    font-size: 25px;
+
 }
