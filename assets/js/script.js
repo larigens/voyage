@@ -3,43 +3,42 @@ var apiKey = "1621a5fb00df3e233c5aa1c741011fd3";
 var city = $('#city');
 var dashboard = $("#dashboard");
 var today = dayjs().format('MM/DD/YYYY');
-var searchHistory = [];
 var searchEl = $("#search-history");
-var searchCity = city.val().trim();
+var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
 
 
 $(function () {
     renderSearchHistory();
 });
 
-function renderSearchHistory() {
-    var searchHistoryArr = JSON.parse(localStorage.getItem("searchHistory"));
 
-    if (searchHistoryArr !== null) {
-        var lastSearchedIndex = searchHistoryArr.length - 1;
-        var lastSearchedCity = searchHistoryArr[lastSearchedIndex];
-        for (i = 0; i <= lastSearchedIndex; i++) {
-            var pTagSearchedCity = $('<p>');
-            pTagSearchedCity.html(`${lastSearchedCity}`);
-            searchEl.append(pTagSearchedCity);
-        }
+function renderSearchHistory() {
+    var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+
+    if (searchHistory !== null) {
+        $.each(searchHistory, function (i) {
+            var searchedCityEl = $('<button>');
+            searchedCityEl.addClass('btn btn-primary');
+            searchedCityEl.attr('type', 'button');
+            searchedCityEl.text(searchHistory[i]);
+            searchedCityEl.attr('onclick', 'getCurrWeather()');
+
+            searchEl.append(searchedCityEl);
+        })
     }
 };
 
 // TODO: FIX DISPLAY LOCAL STORAGE
 
 function storeSearchHistory() {
+    var searchCity = city.val().trim();
+
     if (!searchHistory.includes(searchCity)) {
         searchHistory.push(searchCity);
-        var searchedCity = $('<p>')
-        searchedCity.html(`${searchCity}`);
-
-        searchEl.append(searchedCity);
-    };
-
-    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
-    renderSearchHistory(searchHistory);
+        localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+    }
 }
+
 
 function getCurrWeather() { // q: The query parameter - appid: The application id or key
     var fetchBtn = $("#fetchBtn");
@@ -52,9 +51,8 @@ function getCurrWeather() { // q: The query parameter - appid: The application i
             return response.json()
         })
         .then(function (data) {
-            console.log(data)
+            console.log(data);
             renderCurrWeather(data);
-            storeSearchHistory();
         })
 }
 

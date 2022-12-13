@@ -46,13 +46,14 @@
               <br>
               <input id="city" class="form-control mb-4" type="text" placeholder="Search" aria-label="Search">
               <br>
-              <button id="fetchBtn" class="btn btn-primary ms-2" type="button" onclick="getCurrWeather()"> Search </button>
+              <button id="fetchBtn" class="btn btn-primary ms-2" type="button"
+                onclick="getCurrWeather(); storeSearchHistory()"> Search </button>
               <button class="btn btn-primary ms-2" type="button" onclick="window.location.reload()"> Clear </button>
             </li>
             <hr>
             </button>
             <!-- Search History -->
-            <li id="search-history" class="nav-item"></li>
+            <div id="search-history"></div>
           </ul>
         </div>
       </nav>
