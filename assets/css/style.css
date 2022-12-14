@@ -77,7 +77,7 @@ header p {
     color: var(--dark-accent);
 }
 
-.btn {
+.button {
     width: 89px;
     border: none;
     border-radius: 20px;
@@ -86,8 +86,23 @@ header p {
     background: var(--dark-accent);
 }
 
-.btn:hover {
+.button:hover {
     background: var(--light-accent);
+}
+
+.searchBtn {
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-shadow: 0 4px 7px 4px var(--main-brand);
+    background: var(--light-shades);
+    color: var(--main-brand);
+}
+
+.searchBtn:hover {
+    box-shadow: none;
+    background: var(--main-brand);
+    color: var(--light-shades);
 }
 
 .nav-item a {

@@ -4,6 +4,7 @@ var city = $('#city');
 var dashboard = $("#dashboard");
 var today = dayjs().format('MM/DD/YYYY');
 var searchEl = $("#search-history");
+
 var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
 
 
@@ -16,7 +17,7 @@ function renderSearchHistory() {
     if (searchHistory !== null) {
         $.each(searchHistory, function (i) {
             var searchedCityEl = $('<button>');
-            searchedCityEl.addClass('btnCity btn btn-primary m-3');
+            searchedCityEl.addClass('button btnCity btn btn-primary m-3');
             searchedCityEl.attr('id', searchHistory[i]);
             searchedCityEl.attr('type', 'button');
             searchedCityEl.text(searchHistory[i]);
@@ -38,16 +39,23 @@ function storeSearchHistory() {
 function getCurrWeather() { // q: The query parameter - appid: The application id or key
     var fetchBtn = $("#fetchBtn");
     fetchBtn.css("display", "none");
-    storeSearchHistory();
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city.val() + "&units=imperial&appid=" + apiKey;
 
     fetch(queryURL)
         .then(function (response) {
-            return response.json()
-        })
-        .then(function (data) {
-            console.log(data);
-            renderCurrWeather(data);
+            if (!response.ok) {
+                alert("City not found!");
+            }
+            else {
+                return response.json()
+                    .then(function (data) {
+                        if (data !== null) {
+                            console.log(data);
+                            storeSearchHistory();
+                            renderCurrWeather(data);
+                        }
+                    })
+            }
         })
 }
 
