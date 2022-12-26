@@ -12,22 +12,23 @@
 }
 
 body {
-    background: linear-gradient(to top, var(--main-brand), var(--dark-shades));
     font-family: 'Oswald', sans-serif;
+}
+
+body,
+#sidebarMenu {
+    background: linear-gradient(to top, var(--main-brand), var(--dark-shades));
 }
 
 header {
     display: inline-flex;
     border-radius: 15px;
-    width: 99vw;
     background: linear-gradient(to bottom, var(--main-brand), var(--dark-shades));
     height: 28vh;
 }
 
 header img {
     border-radius: 100px;
-    width: 150px;
-    height: 150px;
     box-shadow: 0 5px 8px 5px var(--main-brand);
 }
 
@@ -51,8 +52,12 @@ header p {
 
 #sidebarMenu {
     border-radius: 15px;
+    width: 15vw;
     height: 117vh;
-    background: linear-gradient(to top, var(--main-brand), var(--dark-shades));
+}
+
+.searchp {
+    margin: 15px 32px;
 }
 
 .custom {
@@ -116,8 +121,18 @@ header p {
 
 .dashboard {
     border-radius: 15px;
-    width: 82vw;
+    width: 84vw;
     background: linear-gradient(to top, var(--main-brand), var(--dark-shades));
+}
+
+.unit {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+}
+
+.unit label {
+    color: var(--light-shades);
 }
 
 .card {

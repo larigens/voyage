@@ -25,8 +25,8 @@
 </head>
 
 <body>
-  <header class="navbar navbar-dark flex-md-nowrap p-4 shadow ms-1 me-1">
-    <img src="./assets/images/logo1.png" alt="logo" class="mb-2 ms-4">
+  <header class="navbar navbar-dark flex-md-nowrap p-4 shadow ms-1 me-2">
+    <img src="./assets/images/logo1.png" alt="logo" class="mb-2 ms-4" width="150px" height="150px">
     <h1 class="navbar-brand col-lg-1 title">Voyage</h1>
     <p> &#9992 The Traveler's Weather App </p>
   </header>
@@ -40,21 +40,21 @@
           <ul class="nav flex-column custom">
             <!-- Search Bar-->
             <li class="nav-item pb-4 border-bottom">
-              <p class="fs-4 d-flex align-items-center mb-2 ms-5">Search
+              <p class="fs-4 d-flex searchp">Search
                 for a City
               </p>
               <br>
-              <input id="city" class="form-control ms-3 mb-4" type="text" placeholder="Search" aria-label="Search">
+              <input id="city" class="form-control ms-1 mb-4" type="text" placeholder="Search" aria-label="Search">
               <br>
-              <button id="fetchBtn" class="button btn btn-primary ms-4 me-2" type="button"
+              <button id="fetchBtn" class="button btn btn-primary ms-2 me-2 mb-4" type="button"
                 onclick="getCurrWeather()"> Search </button>
-              <button class="button btn btn-primary ms-2" type="button" onclick="window.location.reload()"> Clear </button>
+              <button class="button btn btn-primary ms-2 mb-4" type="button" onclick="window.location.reload()"> Clear
+              </button>
             </li>
             <hr>
             </button>
             <!-- Search History -->
             <div id="search-history"></div>
-            <button class="searchBtn btn btn-primary mt-4 ms-4 w-75" type="button" onclick="localStorage.clear(); window.location.reload()"> Delete Search History </button>
           </ul>
         </div>
       </nav>
@@ -63,12 +63,16 @@
       <div class="col-md-8 col-lg-9 px-md-3 mt-1 ms-1 dashboard">
 
         <!-- Dashboard Header -->
-        <div class="d-flex flex-wrap pt-3 pb-2 mb-3 border-bottom">
+        <div class="d-flex flex-wrap pt-3 pb-2 mb-3 border-bottom position-relative">
           <h2 class="h2">Weather Dashboard</h2>
+          <div class="unit form-check form-switch form-check-reverse">
+            <label  class="form-check-label" for="flexSwitchCheckReverse">Switch to Metric</label>
+            <input id="units" class="form-check-input" type="checkbox" id="flexSwitchCheckReverse" onchange="units=this.checked;">
+          </div>
         </div>
 
         <!-- Dashboard Cards Display  -->
-        <div id="dashboard" class="w-100 d-flex flex-wrap justify-content-evenly"></div>
+        <div id="dashboard" class="d-flex flex-wrap justify-content-evenly"></div>
 
       </div>
 

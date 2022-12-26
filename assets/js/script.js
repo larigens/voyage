@@ -4,20 +4,42 @@ var city = $('#city');
 var dashboard = $("#dashboard");
 var today = dayjs().format('MM/DD/YYYY');
 var searchEl = $("#search-history");
+// var units = $("#units");
+var unitSpeed = 'Mph';
+var unitTemp = '°F';
 
+
+// If there is no saved city, then renders an empty array.
 var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
 
 
 $(function () {
+    // It will render the local storage as soon as the page DOM is ready for JavaScript code to execute.
     renderSearchHistory();
-});
 
+    $("#units").click(function () {
+        if (this.checked === true) {
+            console.log("this button is true")
+            var unitTemp = '°C';
+            var unitSpeed = 'Kmh';
+            return unitSpeed, unitTemp;
+        }
+        else {
+            console.log("this button is false")
+            var unitTemp = '°F';
+            var unitSpeed = 'Mph';
+            return unitSpeed, unitTemp;
+        }
+    })
+})
 
 function renderSearchHistory() {
+    // If the local storage is not empty, then it will create a button for each element of the array and attach to the sidebar.
     if (searchHistory !== null) {
         $.each(searchHistory, function (i) {
             var searchedCityEl = $('<button>');
-            searchedCityEl.addClass('button btnCity btn btn-primary m-3');
+            searchedCityEl.addClass('button btnCity btn btn-primary ms-3 mb-4');
+            // Added the city name as the id so that onclick it will capture the id of the button that was clicked and use it as the city input.
             searchedCityEl.attr('id', searchHistory[i]);
             searchedCityEl.attr('type', 'button');
             searchedCityEl.text(searchHistory[i]);
@@ -25,14 +47,24 @@ function renderSearchHistory() {
             searchEl.append(searchedCityEl);
         })
     }
-};
+    if (searchHistory.length > 0) {
+        // Only creates the delete button if the local storage has at least one element in it.
+        var deleteHistory = $("<button>");
+        deleteHistory.attr('type', 'button');
+        deleteHistory.addClass('searchBtn btn btn-primary mt-4 ms-4 w-75');
+        deleteHistory.attr('onclick', 'localStorage.clear(); window.location.reload()');
+        deleteHistory.text("Delete Search History");
+
+        searchEl.append(deleteHistory);
+    }
+}
 
 function storeSearchHistory() {
     var searchCity = city.val().trim();
-
+    // Conditional statement to ensure that it will not store duplicates.
     if (!searchHistory.includes(searchCity)) {
         searchHistory.push(searchCity);
-        localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+        localStorage.setItem("searchHistory", JSON.stringify(searchHistory)); //Setting local storage
     }
 }
 
@@ -54,10 +86,11 @@ function getCurrWeather() { // q: The query parameter - appid: The application i
                             storeSearchHistory();
                             renderCurrWeather(data);
                         }
+
                     })
             }
         })
-}
+};
 
 $("#search-history").click(function (event) {
     var target = $(event.target)
@@ -87,6 +120,7 @@ function renderCurrWeather(data) {
         var cardBody = $("<div>");
         cardBody.addClass("card-body");
 
+        // TODO: FIX BUTTON - SWITCH DATA BUT IT DOES NOT SWTICH THE CITY NAME
         var cityNameEl = $("<h3>");
         cityNameEl.attr('id', 'city-name');
         cityNameEl.addClass('card-title');
@@ -163,16 +197,16 @@ function renderCurrWeather(data) {
     description1.html(weatherDay1.main);
 
     var temperature1 = $("#temperature-1");
-    temperature1.text(mainInfoDay1.temp + "°F");
+    temperature1.text(mainInfoDay1.temp + " " + unitTemp);
 
     var feelsLike1 = $("#feels-like-1");
-    feelsLike1.text(mainInfoDay1.feels_like + "°F");
+    feelsLike1.text(mainInfoDay1.feels_like + " " + unitTemp);
 
     var humidity1 = $("#humidity-1");
     humidity1.text(mainInfoDay1.humidity + "\%");
 
     var windSpeed1 = $("#wind-speed-1");
-    windSpeed1.text(windDay1.speed + "MPH");
+    windSpeed1.text(windDay1.speed + " " + unitSpeed);
 
     getForecast(data)
 }
@@ -221,7 +255,7 @@ function renderForecast(forecastData) {
     humidity2.text(mainInfoDay2.humidity + "\%");
 
     var windSpeed2 = $("#wind-speed-2");
-    windSpeed2.text(windDay2.speed + "MPH");
+    windSpeed2.text(windDay2.speed + "Mph");
 
     // Day 3
     var weatherDay3 = forecastData.list[14].weather[0];
@@ -250,7 +284,7 @@ function renderForecast(forecastData) {
     humidity3.text(mainInfoDay3.humidity + "\%");
 
     var windSpeed3 = $("#wind-speed-3");
-    windSpeed3.text(windDay3.speed + "MPH");
+    windSpeed3.text(windDay3.speed + "Mph");
 
     // Day 4
     var weatherDay4 = forecastData.list[22].weather[0];
@@ -279,7 +313,7 @@ function renderForecast(forecastData) {
     humidity4.text(mainInfoDay4.humidity + "\%");
 
     var windSpeed4 = $("#wind-speed-4");
-    windSpeed4.text(windDay4.speed + "MPH");
+    windSpeed4.text(windDay4.speed + "Mph");
 
     // Day 5
     var weatherDay5 = forecastData.list[30].weather[0];
@@ -308,7 +342,7 @@ function renderForecast(forecastData) {
     humidity5.text(mainInfoDay5.humidity + "\%");
 
     var windSpeed5 = $("#wind-speed-5");
-    windSpeed5.text(windDay5.speed + "MPH");
+    windSpeed5.text(windDay5.speed + "Mph");
 
     // Day 6
     var weatherDay6 = forecastData.list[38].weather[0];
@@ -337,5 +371,5 @@ function renderForecast(forecastData) {
     humidity6.text(mainInfoDay6.humidity + "\%");
 
     var windSpeed6 = $("#wind-speed-6");
-    windSpeed6.text(windDay6.speed + "MPH");
+    windSpeed6.text(windDay6.speed + "Mph");
 }
