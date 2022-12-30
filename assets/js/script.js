@@ -23,15 +23,27 @@ $(function () {
             unitTemp = '°C';
             unitSpeed = 'Km/h';
             unitType = 'metric';
-            getCurrWeather();
+            if (typeof city !== "object") {
+                getCurrWeather();
+            }
         }
         else {
             unitTemp = '°F';
             unitSpeed = 'Mph';
             unitType = 'imperial';
-            getCurrWeather();
+            if (typeof city !== "object") {
+                getCurrWeather();
+            }
         }
     })
+
+    $("#search-history").click(function (event) {
+        var target = $(event.target)
+        if (target.is("button")) {
+            city = target.attr("id");
+            getCurrWeather();
+        }
+    });
 })
 
 function renderSearchHistory() {
@@ -76,9 +88,10 @@ function storeSearchHistory() {
 function getCurrWeather() {
     fetchBtn.css("display", "none");
     // q: The query parameter - appid: The application id or key
-    if (typeof city === 'undefined') {
+    if (typeof city === 'undefined' || typeof city === "object") {
         city = $('#city').val();
     }
+    console.log(city);
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=" + unitType + "&appid=" + apiKey;
     fetch(queryURL)
         .then(function (response) {
@@ -99,15 +112,6 @@ function getCurrWeather() {
         })
 };
 
-$("#search-history").click(function (event) {
-    var target = $(event.target)
-    if (target.is("button")) {
-        city = target.attr("id");
-        getCurrWeather(city);
-    }
-});
-
-
 function renderCurrWeather(data) {
     for (day = 1; day < 7; day++) {
         var weatherCard = $("<div>");
@@ -118,7 +122,7 @@ function renderCurrWeather(data) {
         cardBody.addClass("card-body");
 
         var cityNameEl = $("<h3>");
-        cityNameEl.attr('id', 'city-name');
+        cityNameEl.attr('id', data.name);
         cityNameEl.addClass('card-title');
         cityNameEl.html(data.name);
 
