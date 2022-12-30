@@ -5,11 +5,12 @@ const fetchBtn = $("#fetchBtn");
 const searchEl = $("#search-history");
 
 //  Variables Declaration
+var unitTypeEl = $('#unit-type');
 var city = $('#city');
 var today = dayjs().format('MM/DD/YYYY');
 var unitSpeed = 'Mph';
 var unitTemp = '°F';
-var unitType = 'imperial';
+var unitType = 'Imperial';
 
 // If there is no saved city, then renders an empty array.
 var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
@@ -22,7 +23,8 @@ $(function () {
         if (this.checked === true) {
             unitTemp = '°C';
             unitSpeed = 'Km/h';
-            unitType = 'metric';
+            unitType = 'Metric';
+            unitTypeEl.text(unitType);
             if (typeof city !== "object") {
                 getCurrWeather();
             }
@@ -30,7 +32,8 @@ $(function () {
         else {
             unitTemp = '°F';
             unitSpeed = 'Mph';
-            unitType = 'imperial';
+            unitType = 'Imperial'; 
+            unitTypeEl.text(unitType);
             if (typeof city !== "object") {
                 getCurrWeather();
             }
