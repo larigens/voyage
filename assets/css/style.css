@@ -57,7 +57,7 @@ header p {
 }
 
 .searchp {
-    margin: 15px 32px;
+    margin: 15px 22px;
 }
 
 .custom {
@@ -65,13 +65,12 @@ header p {
 }
 
 .nav-item p {
-    padding-left: 5px;
     color: var(--light-shades);
 }
 
 #city {
     border-radius: 20px;
-    width: 220px;
+    width: 190px;
 }
 
 #city:focus {
@@ -83,7 +82,7 @@ header p {
 }
 
 .button {
-    width: 89px;
+    width: 80px;
     border: none;
     border-radius: 20px;
     outline: none;
@@ -175,7 +174,6 @@ h4 {
 footer {
     border-radius: 15px;
     padding: 20px;
-    width: 99vw;
     font-size: 18px;
     letter-spacing: 0.16rem;
     text-align: center;
