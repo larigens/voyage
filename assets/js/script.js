@@ -1,34 +1,35 @@
-// Variable Declaration
-var apiKey = "1621a5fb00df3e233c5aa1c741011fd3";
+//  Constants Declaration
+const apiKey = "1621a5fb00df3e233c5aa1c741011fd3";
+const dashboard = $("#dashboard");
+const fetchBtn = $("#fetchBtn");
+const searchEl = $("#search-history");
+
+//  Variables Declaration
 var city = $('#city');
-var dashboard = $("#dashboard");
 var today = dayjs().format('MM/DD/YYYY');
-var searchEl = $("#search-history");
-// var units = $("#units");
 var unitSpeed = 'Mph';
 var unitTemp = '°F';
-
+var unitType = 'imperial';
 
 // If there is no saved city, then renders an empty array.
 var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
 
-
 $(function () {
     // It will render the local storage as soon as the page DOM is ready for JavaScript code to execute.
     renderSearchHistory();
-
+    // On switch, changes units.
     $("#units").click(function () {
         if (this.checked === true) {
-            console.log("this button is true")
-            var unitTemp = '°C';
-            var unitSpeed = 'Kmh';
-            return unitSpeed, unitTemp;
+            unitTemp = '°C';
+            unitSpeed = 'Km/h';
+            unitType = 'metric';
+            getCurrWeather();
         }
         else {
-            console.log("this button is false")
-            var unitTemp = '°F';
-            var unitSpeed = 'Mph';
-            return unitSpeed, unitTemp;
+            unitTemp = '°F';
+            unitSpeed = 'Mph';
+            unitType = 'imperial';
+            getCurrWeather();
         }
     })
 })
@@ -60,7 +61,11 @@ function renderSearchHistory() {
 }
 
 function storeSearchHistory() {
-    var searchCity = city.val().trim();
+    if (typeof city === "object") {
+        console.log(city);
+        city = $('#city').val().trim();
+    }
+    var searchCity = city;
     // Conditional statement to ensure that it will not store duplicates.
     if (!searchHistory.includes(searchCity)) {
         searchHistory.push(searchCity);
@@ -68,11 +73,13 @@ function storeSearchHistory() {
     }
 }
 
-function getCurrWeather() { // q: The query parameter - appid: The application id or key
-    var fetchBtn = $("#fetchBtn");
+function getCurrWeather() {
     fetchBtn.css("display", "none");
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city.val() + "&units=imperial&appid=" + apiKey;
-
+    // q: The query parameter - appid: The application id or key
+    if (typeof city === 'undefined') {
+        city = $('#city').val();
+    }
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=" + unitType + "&appid=" + apiKey;
     fetch(queryURL)
         .then(function (response) {
             if (!response.ok) {
@@ -83,10 +90,10 @@ function getCurrWeather() { // q: The query parameter - appid: The application i
                     .then(function (data) {
                         if (data !== null) {
                             console.log(data);
-                            storeSearchHistory();
+                            storeSearchHistory(city);
+                            $('.card').remove(); // Deletes the old cards so it can create new ones with the chosen unit type.
                             renderCurrWeather(data);
                         }
-
                     })
             }
         })
@@ -95,21 +102,11 @@ function getCurrWeather() { // q: The query parameter - appid: The application i
 $("#search-history").click(function (event) {
     var target = $(event.target)
     if (target.is("button")) {
-        var city2 = target.attr("id");
-        var fetchBtn = $("#fetchBtn");
-        fetchBtn.css("display", "none");
-        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city2 + "&units=imperial&appid=" + apiKey;
-
-        fetch(queryURL)
-            .then(function (response) {
-                return response.json()
-            })
-            .then(function (data) {
-                console.log(data);
-                renderCurrWeather(data);
-            })
+        city = target.attr("id");
+        getCurrWeather(city);
     }
 });
+
 
 function renderCurrWeather(data) {
     for (day = 1; day < 7; day++) {
@@ -120,7 +117,6 @@ function renderCurrWeather(data) {
         var cardBody = $("<div>");
         cardBody.addClass("card-body");
 
-        // TODO: FIX BUTTON - SWITCH DATA BUT IT DOES NOT SWTICH THE CITY NAME
         var cityNameEl = $("<h3>");
         cityNameEl.attr('id', 'city-name');
         cityNameEl.addClass('card-title');
@@ -215,7 +211,7 @@ function getForecast(data) {
     var lat = data.coord.lat;
     var lon = data.coord.lon;
 
-    var queryURLForecast = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
+    var queryURLForecast = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=" + unitType + "&appid=" + apiKey;
 
     fetch(queryURLForecast)
         .then(function (response) {
@@ -246,16 +242,16 @@ function renderForecast(forecastData) {
     description2.html(weatherDay2.main);
 
     var temperature2 = $("#temperature-2");
-    temperature2.text(mainInfoDay2.temp + "°F");
+    temperature2.text(mainInfoDay2.temp + " " + unitTemp);
 
     var feelsLike2 = $("#feels-like-2");
-    feelsLike2.text(mainInfoDay2.feels_like + "°F");
+    feelsLike2.text(mainInfoDay2.feels_like + " " + unitTemp);
 
     var humidity2 = $("#humidity-2");
     humidity2.text(mainInfoDay2.humidity + "\%");
 
     var windSpeed2 = $("#wind-speed-2");
-    windSpeed2.text(windDay2.speed + "Mph");
+    windSpeed2.text(windDay2.speed + " " + unitSpeed);
 
     // Day 3
     var weatherDay3 = forecastData.list[14].weather[0];
@@ -275,16 +271,16 @@ function renderForecast(forecastData) {
     description3.html(weatherDay3.main);
 
     var temperature3 = $("#temperature-3");
-    temperature3.text(mainInfoDay3.temp + "°F");
+    temperature3.text(mainInfoDay3.temp + " " + unitTemp);
 
     var feelsLike3 = $("#feels-like-3");
-    feelsLike3.text(mainInfoDay3.feels_like + "°F");
+    feelsLike3.text(mainInfoDay3.feels_like + " " + unitTemp);
 
     var humidity3 = $("#humidity-3");
     humidity3.text(mainInfoDay3.humidity + "\%");
 
     var windSpeed3 = $("#wind-speed-3");
-    windSpeed3.text(windDay3.speed + "Mph");
+    windSpeed3.text(windDay3.speed + " " + unitSpeed);
 
     // Day 4
     var weatherDay4 = forecastData.list[22].weather[0];
@@ -304,16 +300,16 @@ function renderForecast(forecastData) {
     description4.html(weatherDay4.main);
 
     var temperature4 = $("#temperature-4");
-    temperature4.text(mainInfoDay4.temp + "°F");
+    temperature4.text(mainInfoDay4.temp + " " + unitTemp);
 
     var feelsLike4 = $("#feels-like-4");
-    feelsLike4.text(mainInfoDay4.feels_like + "°F");
+    feelsLike4.text(mainInfoDay4.feels_like + " " + unitTemp);
 
     var humidity4 = $("#humidity-4");
     humidity4.text(mainInfoDay4.humidity + "\%");
 
     var windSpeed4 = $("#wind-speed-4");
-    windSpeed4.text(windDay4.speed + "Mph");
+    windSpeed4.text(windDay4.speed + " " + unitSpeed);
 
     // Day 5
     var weatherDay5 = forecastData.list[30].weather[0];
@@ -333,16 +329,16 @@ function renderForecast(forecastData) {
     description5.html(weatherDay5.main);
 
     var temperature5 = $("#temperature-5");
-    temperature5.text(mainInfoDay5.temp + "°F");
+    temperature5.text(mainInfoDay5.temp + " " + unitTemp);
 
     var feelsLike5 = $("#feels-like-5");
-    feelsLike5.text(mainInfoDay5.feels_like + "°F");
+    feelsLike5.text(mainInfoDay5.feels_like + " " + unitTemp);
 
     var humidity5 = $("#humidity-5");
     humidity5.text(mainInfoDay5.humidity + "\%");
 
     var windSpeed5 = $("#wind-speed-5");
-    windSpeed5.text(windDay5.speed + "Mph");
+    windSpeed5.text(windDay5.speed + " " + unitSpeed);
 
     // Day 6
     var weatherDay6 = forecastData.list[38].weather[0];
@@ -362,14 +358,14 @@ function renderForecast(forecastData) {
     description6.html(weatherDay6.main);
 
     var temperature6 = $("#temperature-6");
-    temperature6.text(mainInfoDay6.temp + "°F");
+    temperature6.text(mainInfoDay6.temp + " " + unitTemp);
 
     var feelsLike6 = $("#feels-like-6");
-    feelsLike6.text(mainInfoDay6.feels_like + "°F");
+    feelsLike6.text(mainInfoDay6.feels_like + " " + unitTemp);
 
     var humidity6 = $("#humidity-6");
     humidity6.text(mainInfoDay6.humidity + "\%");
 
     var windSpeed6 = $("#wind-speed-6");
-    windSpeed6.text(windDay6.speed + "Mph");
+    windSpeed6.text(windDay6.speed + " " + unitSpeed);
 }
