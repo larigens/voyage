@@ -18,13 +18,14 @@ var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
 $(function () {
     // It will render the local storage as soon as the page DOM is ready for JavaScript code to execute.
     renderSearchHistory();
-    // On switch, changes units.
+    // Switch on, switchs unit.
     $("#units").click(function () {
         if (this.checked === true) {
             unitTemp = '°C';
             unitSpeed = 'Km/h';
             unitType = 'Metric';
             unitTypeEl.text(unitType);
+            // If the user toggles the button first, city will be an object and it won't fetch.
             if (typeof city !== "object") {
                 getCurrWeather();
             }
@@ -32,18 +33,18 @@ $(function () {
         else {
             unitTemp = '°F';
             unitSpeed = 'Mph';
-            unitType = 'Imperial'; 
+            unitType = 'Imperial';
             unitTypeEl.text(unitType);
             if (typeof city !== "object") {
                 getCurrWeather();
             }
         }
     })
-
+    // Added the event listener to the entire div to be able to get the id of the target that will be the new city's value.
     $("#search-history").click(function (event) {
         var target = $(event.target)
         if (target.is("button")) {
-            city = target.attr("id");
+            city = target.attr("id"); // city will be the button's id.
             getCurrWeather();
         }
     });
@@ -63,38 +64,25 @@ function renderSearchHistory() {
             searchEl.append(searchedCityEl);
         })
     }
-    if (searchHistory.length > 0) {
+    else if (searchHistory.length > 0) {
         // Only creates the delete button if the local storage has at least one element in it.
         var deleteHistory = $("<button>");
         deleteHistory.attr('type', 'button');
-        deleteHistory.addClass('searchBtn btn btn-primary mt-4 ms-4 w-75');
-        deleteHistory.attr('onclick', 'localStorage.clear(); window.location.reload()');
+        deleteHistory.addClass('deleteBtn btn btn-primary mt-4 ms-2');
+        deleteHistory.attr('onclick', 'localStorage.clear(); window.location.reload()'); // Function to delete local storage and refresh the page.
         deleteHistory.text("Delete Search History");
 
         searchEl.append(deleteHistory);
     }
 }
 
-function storeSearchHistory() {
-    if (typeof city === "object") {
-        console.log(city);
-        city = $('#city').val().trim();
-    }
-    var searchCity = city;
-    // Conditional statement to ensure that it will not store duplicates.
-    if (!searchHistory.includes(searchCity)) {
-        searchHistory.push(searchCity);
-        localStorage.setItem("searchHistory", JSON.stringify(searchHistory)); //Setting local storage
-    }
-}
-
 function getCurrWeather() {
     fetchBtn.css("display", "none");
-    // q: The query parameter - appid: The application id or key
+    // If the user toggles the button first - this function will only be executed after entering a city in the search bar.
     if (typeof city === 'undefined' || typeof city === "object") {
-        city = $('#city').val();
+        city = $('#city').val(); // City will be the users input. If the user clicks the button in the search history, then this conditional statement will be ignored.
     }
-    console.log(city);
+    // q: The query parameter - appid: The application id or key
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=" + unitType + "&appid=" + apiKey;
     fetch(queryURL)
         .then(function (response) {
@@ -107,7 +95,7 @@ function getCurrWeather() {
                         if (data !== null) {
                             console.log(data);
                             storeSearchHistory(city);
-                            $('.card').remove(); // Deletes the old cards so it can create new ones with the chosen unit type.
+                            $('.card').remove(); // Deletes the old cards so it can create new ones with the new chosen unit type.
                             renderCurrWeather(data);
                         }
                     })
@@ -115,7 +103,21 @@ function getCurrWeather() {
         })
 };
 
+function storeSearchHistory() {
+    if (typeof city === "object") {
+        console.log(city);
+        city = $('#city').val().trim(); // To store the city that was typed in the search bar without whitespace.
+    }
+    var searchCity = city;
+    // Conditional statement to ensure that it will not store duplicates.
+    if (!searchHistory.includes(searchCity)) {
+        searchHistory.push(searchCity);
+        localStorage.setItem("searchHistory", JSON.stringify(searchHistory)); //Setting local storage
+    }
+}
+
 function renderCurrWeather(data) {
+    // Creates all cards for each day (today's forecast + 5 days) and appends to dashboard.
     for (day = 1; day < 7; day++) {
         var weatherCard = $("<div>");
         weatherCard.attr('id', 'day-' + `${day}`);
@@ -211,31 +213,32 @@ function renderCurrWeather(data) {
     var windSpeed1 = $("#wind-speed-1");
     windSpeed1.text(windDay1.speed + " " + unitSpeed);
 
-    getForecast(data)
+    getFutureForecast(data)
 }
 
-function getForecast(data) {
+// 5-days Forecast
+function getFutureForecast(data) {
     var lat = data.coord.lat;
     var lon = data.coord.lon;
 
-    var queryURLForecast = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=" + unitType + "&appid=" + apiKey;
+    var queryURLFuture = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=" + unitType + "&appid=" + apiKey;
 
-    fetch(queryURLForecast)
+    fetch(queryURLFuture)
         .then(function (response) {
             return response.json();
         })
-        .then(function (forecastData) {
-            console.log(forecastData);
-            renderForecast(forecastData);
+        .then(function (futureData) {
+            console.log(futureData);
+            renderFutureForecast(futureData);
         })
 };
 
-function renderForecast(forecastData) {
+function renderFutureForecast(futureData) {
     // Day 2
-    var weatherDay2 = forecastData.list[6].weather[0];
-    var mainInfoDay2 = forecastData.list[6].main;
-    var windDay2 = forecastData.list[6].wind;
-    var currDate2 = dayjs(forecastData.list[6].dt_txt).format('MM/DD/YYYY');
+    var weatherDay2 = futureData.list[6].weather[0];
+    var mainInfoDay2 = futureData.list[6].main;
+    var windDay2 = futureData.list[6].wind;
+    var currDate2 = dayjs(futureData.list[6].dt_txt).format('MM/DD/YYYY');
 
     var date2 = $('#date-2');
     date2.html(currDate2);
@@ -261,10 +264,10 @@ function renderForecast(forecastData) {
     windSpeed2.text(windDay2.speed + " " + unitSpeed);
 
     // Day 3
-    var weatherDay3 = forecastData.list[14].weather[0];
-    var mainInfoDay3 = forecastData.list[14].main;
-    var windDay3 = forecastData.list[14].wind;
-    var currDate3 = dayjs(forecastData.list[14].dt_txt).format('MM/DD/YYYY');
+    var weatherDay3 = futureData.list[14].weather[0];
+    var mainInfoDay3 = futureData.list[14].main;
+    var windDay3 = futureData.list[14].wind;
+    var currDate3 = dayjs(futureData.list[14].dt_txt).format('MM/DD/YYYY');
 
     var date3 = $('#date-3');
     date3.html(currDate3);
@@ -290,10 +293,10 @@ function renderForecast(forecastData) {
     windSpeed3.text(windDay3.speed + " " + unitSpeed);
 
     // Day 4
-    var weatherDay4 = forecastData.list[22].weather[0];
-    var mainInfoDay4 = forecastData.list[22].main;
-    var windDay4 = forecastData.list[22].wind;
-    var currDate4 = dayjs(forecastData.list[22].dt_txt).format('MM/DD/YYYY');
+    var weatherDay4 = futureData.list[22].weather[0];
+    var mainInfoDay4 = futureData.list[22].main;
+    var windDay4 = futureData.list[22].wind;
+    var currDate4 = dayjs(futureData.list[22].dt_txt).format('MM/DD/YYYY');
 
     var date4 = $('#date-4');
     date4.html(currDate4);
@@ -319,10 +322,10 @@ function renderForecast(forecastData) {
     windSpeed4.text(windDay4.speed + " " + unitSpeed);
 
     // Day 5
-    var weatherDay5 = forecastData.list[30].weather[0];
-    var mainInfoDay5 = forecastData.list[30].main;
-    var windDay5 = forecastData.list[30].wind;
-    var currDate5 = dayjs(forecastData.list[30].dt_txt).format('MM/DD/YYYY');
+    var weatherDay5 = futureData.list[30].weather[0];
+    var mainInfoDay5 = futureData.list[30].main;
+    var windDay5 = futureData.list[30].wind;
+    var currDate5 = dayjs(futureData.list[30].dt_txt).format('MM/DD/YYYY');
 
     var date5 = $('#date-5');
     date5.html(currDate5);
@@ -348,10 +351,10 @@ function renderForecast(forecastData) {
     windSpeed5.text(windDay5.speed + " " + unitSpeed);
 
     // Day 6
-    var weatherDay6 = forecastData.list[38].weather[0];
-    var mainInfoDay6 = forecastData.list[38].main;
-    var windDay6 = forecastData.list[38].wind;
-    var currDate6 = dayjs(forecastData.list[38].dt_txt).format('MM/DD/YYYY');
+    var weatherDay6 = futureData.list[38].weather[0];
+    var mainInfoDay6 = futureData.list[38].main;
+    var windDay6 = futureData.list[38].wind;
+    var currDate6 = dayjs(futureData.list[38].dt_txt).format('MM/DD/YYYY');
 
     var date6 = $('#date-6');
     date6.html(currDate6);

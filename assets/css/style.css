@@ -1,10 +1,14 @@
+/* Pseudo-class that matches the root element of the document. */
 :root {
     --dark-shades: rgb(4, 8, 11);
     --dark-accent: rgb(171, 15, 163);
     --main-brand: rgb(142, 95, 202);
     --light-accent: rgb(187, 94, 202);
     --light-shades: rgb(192, 213, 247);
-    --light: rgb(241, 245, 252);
+    --gradient-bottom: linear-gradient(to bottom, var(--main-brand), var(--dark-shades));
+    --gradient-top: linear-gradient(to top, var(--main-brand), var(--dark-shades));
+    --heading: 'Moon Dance', cursive;
+    --body: 'Oswald', sans-serif;
 }
 
 * {
@@ -12,19 +16,30 @@
 }
 
 body {
-    font-family: 'Oswald', sans-serif;
+    font-family: var(--body);
 }
 
 body,
-#sidebarMenu {
-    background: linear-gradient(to top, var(--main-brand), var(--dark-shades));
+#sidebarMenu,
+.dashboard {
+    background: var(--gradient-top);
 }
 
 header {
     display: inline-flex;
-    border-radius: 15px;
-    background: linear-gradient(to bottom, var(--main-brand), var(--dark-shades));
     height: 28vh;
+}
+
+header,
+footer {
+    background: var(--gradient-bottom);
+}
+
+header,
+#sidebarMenu,
+.dashboard,
+footer {
+    border-radius: 15px;
 }
 
 header img {
@@ -36,9 +51,15 @@ header img {
     margin-top: 10px;
     margin-right: 90px;
     font-size: 90px;
-    font-family: 'Moon Dance', cursive;
+    font-family: var(--heading);
     letter-spacing: 0.3rem;
     text-shadow: 2px 4px var(--dark-accent);
+}
+
+.title,
+.deleteBtn,
+h3,
+span {
     color: var(--main-brand);
 }
 
@@ -47,24 +68,32 @@ header p {
     margin-right: 10px;
     font-size: 20px;
     letter-spacing: 0.2rem;
+}
+
+header p,
+#city[type=text],
+.date {
     color: var(--dark-accent);
 }
 
 #sidebarMenu {
-    border-radius: 15px;
     width: 15vw;
     height: 117vh;
-}
-
-.searchp {
-    margin: 15px 22px;
 }
 
 .custom {
     margin-top: 50px;
 }
 
-.nav-item p {
+.searchp {
+    margin: 15px 22px;
+}
+
+.searchp,
+.deleteBtn:hover,
+.unit label,
+footer p,
+.icon {
     color: var(--light-shades);
 }
 
@@ -73,20 +102,13 @@ header p {
     width: 190px;
 }
 
-#city:focus {
+#city:focus,
+.button {
     box-shadow: 0 2px 8px 2px var(--light-accent);
-}
-
-#city[type=text] {
-    color: var(--dark-accent);
 }
 
 .button {
     width: 80px;
-    border: none;
-    border-radius: 20px;
-    outline: none;
-    box-shadow: 0 2px 5px 2px var(--light-accent);
     background: var(--dark-accent);
 }
 
@@ -94,44 +116,39 @@ header p {
     background: var(--light-accent);
 }
 
-.searchBtn {
+/* Border and outline as 'none' to ensure the box shadow has a nice aesthetic. */
+.button,
+.deleteBtn {
     border: none;
-    border-radius: 20px;
     outline: none;
-    box-shadow: 0 4px 7px 4px var(--main-brand);
-    background: var(--light-shades);
-    color: var(--main-brand);
+    border-radius: 20px;
 }
 
-.searchBtn:hover {
+.deleteBtn {
+    box-shadow: 0 4px 7px 4px var(--main-brand);
+    width: 12vw;
+    background: var(--light-shades);
+}
+
+.deleteBtn:hover {
     box-shadow: none;
     background: var(--main-brand);
-    color: var(--light-shades);
 }
 
-.nav-item a {
-    text-decoration: none;
-    color: var(--light-shades);
+h2,
+.description {
+    color: var(--light-accent);
 }
 
-.nav-item a:hover {
-    color: var(--dark-accent);
-}
-
-.dashboard {
-    border-radius: 15px;
-    width: 84vw;
-    background: linear-gradient(to top, var(--main-brand), var(--dark-shades));
-}
-
+/* To position the switch button in the upper right corner of the dashboard.  */
 .unit {
     position: absolute;
     top: 25px;
     right: 20px;
 }
 
-.unit label {
-    color: var(--light-shades);
+.dashboard {
+    width: 84vw;
 }
 
 .card {
@@ -142,14 +159,9 @@ header p {
     height: 22rem;
 }
 
-h2 {
-    color: var(--light-accent);
-}
-
 .date {
     margin-left: 97px;
     font-size: 15px;
-    color: var(--dark-accent);
 }
 
 .card-body img {
@@ -162,30 +174,13 @@ h2 {
     font-size: 19px;
 }
 
-h3,
-span {
-    color: var(--main-brand);
-}
-
-h4 {
-    color: var(--light-accent);
-}
-
 footer {
-    border-radius: 15px;
     padding: 20px;
     font-size: 18px;
     letter-spacing: 0.16rem;
     text-align: center;
-    background: linear-gradient(to bottom, var(--main-brand), var(--dark-shades));
-}
-
-footer p,
-.icon {
-    color: var(--light-shades);
 }
 
 .icon {
     font-size: 25px;
-
 }
