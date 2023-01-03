@@ -234,148 +234,60 @@ function getFutureForecast(data) {
 };
 
 function renderFutureForecast(futureData) {
-    // Day 2
-    var weatherDay2 = futureData.list[6].weather[0];
-    var mainInfoDay2 = futureData.list[6].main;
-    var windDay2 = futureData.list[6].wind;
-    var currDate2 = dayjs(futureData.list[6].dt_txt).format('MM/DD/YYYY');
+    // Generates the data for the other cards.
+    for (day = 2; day < 7; day++) {
+        if (day === 2) {
+            var weatherDay = futureData.list[6].weather[0];
+            var mainInfoDay = futureData.list[6].main;
+            var windDay = futureData.list[6].wind;
+            var currDate = dayjs(futureData.list[6].dt_txt).format('MM/DD/YYYY');
+        }
+        else if (day === 3) {
+            var weatherDay = futureData.list[14].weather[0];
+            var mainInfoDay = futureData.list[14].main;
+            var windDay = futureData.list[14].wind;
+            var currDate = dayjs(futureData.list[14].dt_txt).format('MM/DD/YYYY');
+        }
+        else if (day === 4) {
+            var weatherDay = futureData.list[22].weather[0];
+            var mainInfoDay = futureData.list[22].main;
+            var windDay = futureData.list[22].wind;
+            var currDate = dayjs(futureData.list[22].dt_txt).format('MM/DD/YYYY');
+        }
+        else if (day === 5) {
+            var weatherDay = futureData.list[30].weather[0];
+            var mainInfoDay = futureData.list[30].main;
+            var windDay = futureData.list[30].wind;
+            var currDate = dayjs(futureData.list[30].dt_txt).format('MM/DD/YYYY');
+        }
+        else {
+            var weatherDay = futureData.list[38].weather[0];
+            var mainInfoDay = futureData.list[38].main;
+            var windDay = futureData.list[38].wind;
+            var currDate = dayjs(futureData.list[38].dt_txt).format('MM/DD/YYYY');
+        }
 
-    var date2 = $('#date-2');
-    date2.html(currDate2);
+        var dateEl = $('#date-' + day);
+        dateEl.html(currDate);
 
-    var icon2 = weatherDay2.icon;
-    var iconURL2 = "https://openweathermap.org/img/w/" + icon2 + ".png";
-    var weatherIcon2 = $('#weather-icon-2');
-    weatherIcon2.attr("src", iconURL2);
+        var iconEl = weatherDay.icon;
+        var iconURL = "https://openweathermap.org/img/w/" + iconEl + ".png";
+        var weatherIcon = $('#weather-icon-' + day);
+        weatherIcon.attr("src", iconURL);
 
-    var description2 = $("#description-2");
-    description2.html(weatherDay2.main);
+        var description = $("#description-" + day);
+        description.html(weatherDay.main);
 
-    var temperature2 = $("#temperature-2");
-    temperature2.text(mainInfoDay2.temp + " " + unitTemp);
+        var temperature = $("#temperature-" + day);
+        temperature.text(mainInfoDay.temp + " " + unitTemp);
 
-    var feelsLike2 = $("#feels-like-2");
-    feelsLike2.text(mainInfoDay2.feels_like + " " + unitTemp);
+        var feelsLike = $("#feels-like-" + day);
+        feelsLike.text(mainInfoDay.feels_like + " " + unitTemp);
 
-    var humidity2 = $("#humidity-2");
-    humidity2.text(mainInfoDay2.humidity + "\%");
+        var humidity = $("#humidity-" + day);
+        humidity.text(mainInfoDay.humidity + "\%");
 
-    var windSpeed2 = $("#wind-speed-2");
-    windSpeed2.text(windDay2.speed + " " + unitSpeed);
-
-    // Day 3
-    var weatherDay3 = futureData.list[14].weather[0];
-    var mainInfoDay3 = futureData.list[14].main;
-    var windDay3 = futureData.list[14].wind;
-    var currDate3 = dayjs(futureData.list[14].dt_txt).format('MM/DD/YYYY');
-
-    var date3 = $('#date-3');
-    date3.html(currDate3);
-
-    var icon3 = weatherDay3.icon;
-    var iconURL3 = "https://openweathermap.org/img/w/" + icon3 + ".png";
-    var weatherIcon3 = $('#weather-icon-3');
-    weatherIcon3.attr("src", iconURL3);
-
-    var description3 = $("#description-3");
-    description3.html(weatherDay3.main);
-
-    var temperature3 = $("#temperature-3");
-    temperature3.text(mainInfoDay3.temp + " " + unitTemp);
-
-    var feelsLike3 = $("#feels-like-3");
-    feelsLike3.text(mainInfoDay3.feels_like + " " + unitTemp);
-
-    var humidity3 = $("#humidity-3");
-    humidity3.text(mainInfoDay3.humidity + "\%");
-
-    var windSpeed3 = $("#wind-speed-3");
-    windSpeed3.text(windDay3.speed + " " + unitSpeed);
-
-    // Day 4
-    var weatherDay4 = futureData.list[22].weather[0];
-    var mainInfoDay4 = futureData.list[22].main;
-    var windDay4 = futureData.list[22].wind;
-    var currDate4 = dayjs(futureData.list[22].dt_txt).format('MM/DD/YYYY');
-
-    var date4 = $('#date-4');
-    date4.html(currDate4);
-
-    var icon4 = weatherDay4.icon;
-    var iconURL4 = "https://openweathermap.org/img/w/" + icon4 + ".png";
-    var weatherIcon4 = $('#weather-icon-4');
-    weatherIcon4.attr("src", iconURL4);
-
-    var description4 = $("#description-4");
-    description4.html(weatherDay4.main);
-
-    var temperature4 = $("#temperature-4");
-    temperature4.text(mainInfoDay4.temp + " " + unitTemp);
-
-    var feelsLike4 = $("#feels-like-4");
-    feelsLike4.text(mainInfoDay4.feels_like + " " + unitTemp);
-
-    var humidity4 = $("#humidity-4");
-    humidity4.text(mainInfoDay4.humidity + "\%");
-
-    var windSpeed4 = $("#wind-speed-4");
-    windSpeed4.text(windDay4.speed + " " + unitSpeed);
-
-    // Day 5
-    var weatherDay5 = futureData.list[30].weather[0];
-    var mainInfoDay5 = futureData.list[30].main;
-    var windDay5 = futureData.list[30].wind;
-    var currDate5 = dayjs(futureData.list[30].dt_txt).format('MM/DD/YYYY');
-
-    var date5 = $('#date-5');
-    date5.html(currDate5);
-
-    var icon5 = weatherDay5.icon;
-    var iconURL5 = "https://openweathermap.org/img/w/" + icon5 + ".png";
-    var weatherIcon5 = $('#weather-icon-5');
-    weatherIcon5.attr("src", iconURL5);
-
-    var description5 = $("#description-5");
-    description5.html(weatherDay5.main);
-
-    var temperature5 = $("#temperature-5");
-    temperature5.text(mainInfoDay5.temp + " " + unitTemp);
-
-    var feelsLike5 = $("#feels-like-5");
-    feelsLike5.text(mainInfoDay5.feels_like + " " + unitTemp);
-
-    var humidity5 = $("#humidity-5");
-    humidity5.text(mainInfoDay5.humidity + "\%");
-
-    var windSpeed5 = $("#wind-speed-5");
-    windSpeed5.text(windDay5.speed + " " + unitSpeed);
-
-    // Day 6
-    var weatherDay6 = futureData.list[38].weather[0];
-    var mainInfoDay6 = futureData.list[38].main;
-    var windDay6 = futureData.list[38].wind;
-    var currDate6 = dayjs(futureData.list[38].dt_txt).format('MM/DD/YYYY');
-
-    var date6 = $('#date-6');
-    date6.html(currDate6);
-
-    var icon6 = weatherDay6.icon;
-    var iconURL6 = "https://openweathermap.org/img/w/" + icon6 + ".png";
-    var weatherIcon6 = $('#weather-icon-6');
-    weatherIcon6.attr("src", iconURL6);
-
-    var description6 = $("#description-6");
-    description6.html(weatherDay6.main);
-
-    var temperature6 = $("#temperature-6");
-    temperature6.text(mainInfoDay6.temp + " " + unitTemp);
-
-    var feelsLike6 = $("#feels-like-6");
-    feelsLike6.text(mainInfoDay6.feels_like + " " + unitTemp);
-
-    var humidity6 = $("#humidity-6");
-    humidity6.text(mainInfoDay6.humidity + "\%");
-
-    var windSpeed6 = $("#wind-speed-6");
-    windSpeed6.text(windDay6.speed + " " + unitSpeed);
+        var windSpeed = $("#wind-speed-" + day);
+        windSpeed.text(windDay.speed + " " + unitSpeed);
+    }
 }
