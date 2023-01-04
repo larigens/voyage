@@ -16,7 +16,9 @@ var searchHistory = [];
 
 $(function () {
     // It will render the local storage as soon as the page DOM is ready for JavaScript code to execute.
-    renderSearchHistory();
+    if (searchHistory !== null) {
+        renderSearchHistory();
+    }
     // Switch on, switchs unit.
     $("#units").click(function () {
         if (this.checked === true) {
@@ -53,6 +55,7 @@ function renderSearchHistory() {
     // If the local storage is not empty, then it will create a button for each element of the array and attach to the sidebar.
     if (searchHistory !== null) {
         searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
+        console.log(searchHistory);
         for (i = 0; i < searchHistory.length; i++) {
             var searchedCityEl = $('<button>');
             searchedCityEl.addClass('button btnCity btn btn-primary ms-3 mb-4');
