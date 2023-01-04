@@ -151,22 +151,54 @@ h2,
     width: 84vw;
 }
 
+#day-1 {
+    box-shadow: 0 6px 20px 6px var(--main-brand);
+    width: 83rem;
+    height: 23rem;
+    padding-top: 15px;
+}
+
 .card {
-    margin: 18px 40px;
+    margin: 15px 10px;
     border-radius: 10px;
     box-shadow: 0 4px 10px 4px var(--main-brand);
-    width: 20rem;
+    width: 15rem;
     height: 22rem;
+    text-align: center;
+}
+
+#day-1 .card-body {
+    padding: 0;
+}
+
+#day-1 .card-body h3 {
+    font-size: 38px;
 }
 
 .date {
-    margin-left: 97px;
+    margin-left: 37px;
     font-size: 15px;
+}
+
+#date-1 {
+    margin-left: 65rem;
+    font-size: 20px;
 }
 
 .card-body img {
     width: 60px;
     height: 60px;
+}
+
+#day-1 .card-body img {
+    padding-top: 0;
+    margin-top: 0;
+    width: 70px;
+    height: 70px;
+}
+
+#day-1 .card-body h4 {
+    font-size: 21px;
 }
 
 .description {

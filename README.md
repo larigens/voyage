@@ -34,6 +34,10 @@ The following gif shows the web application's appearance and functionality:
 
 Voyage is a tool that enables you to check the weather for any city at any time. You can easily search for a destination and see current and 5-day forecast weather conditions. When you view weather conditions for that city you will be able to see the city name, the date, icons that represent weather conditions, temperature, humidity, and wind speed.
 
+It will also store the searched city so that you can easily access the information of that city by clicking on the button located in the sidebar.
+
+BONUS: You can choose the measurement system that makes sense for you! The Switch in the upper right corner of the dashboard allows you to change the units at any time!
+
 ## Support
 
 For support, email larigens@gmail.com.
