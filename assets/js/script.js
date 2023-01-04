@@ -11,9 +11,8 @@ var today = dayjs().format('MM/DD/YYYY');
 var unitSpeed = 'Mph';
 var unitTemp = '°F';
 var unitType = 'Imperial';
-
 // If there is no saved city, then renders an empty array.
-var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+var searchHistory = [];
 
 $(function () {
     // It will render the local storage as soon as the page DOM is ready for JavaScript code to execute.
@@ -53,7 +52,8 @@ $(function () {
 function renderSearchHistory() {
     // If the local storage is not empty, then it will create a button for each element of the array and attach to the sidebar.
     if (searchHistory !== null) {
-        $.each(searchHistory, function (i) {
+        searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
+        for (i = 0; i < searchHistory.length; i++) {
             var searchedCityEl = $('<button>');
             searchedCityEl.addClass('button btnCity btn btn-primary ms-3 mb-4');
             // Added the city name as the id so that onclick it will capture the id of the button that was clicked and use it as the city input.
@@ -62,8 +62,9 @@ function renderSearchHistory() {
             searchedCityEl.text(searchHistory[i]);
 
             searchEl.append(searchedCityEl);
-        })
+        }
     }
+
     if (searchHistory.length > 0) {
         // Only creates the delete button if the local storage has at least one element in it.
         var deleteHistory = $("<button>");
@@ -121,7 +122,7 @@ function renderCurrWeather(data) {
     for (day = 1; day < 7; day++) {
         var weatherCard = $("<div>");
         weatherCard.attr('id', 'day-' + `${day}`);
-        weatherCard.addClass("card");
+        weatherCard.addClass("card pb-0");
 
         var cardBody = $("<div>");
         cardBody.addClass("card-body");
@@ -139,13 +140,14 @@ function renderCurrWeather(data) {
         var weatherIconEl = $("<img>");
         weatherIconEl.attr('id', 'weather-icon-' + `${day}`);
         weatherIconEl.attr('alt', 'weather icon');
+        weatherIconEl.addClass("mt-0 pt-0");
 
         var descriptionEl = $("<h4>");
         descriptionEl.attr('id', 'description-' + `${day}`);
-        descriptionEl.addClass("card-subtitle mb-3 pb-3 description border-bottom border-2");
+        descriptionEl.addClass("card-subtitle mb-2 pb-2 description border-bottom border-2");
 
         var pTagTemp = $("<p>");
-        pTagTemp.addClass("card-text");
+        pTagTemp.addClass("card-text mt-2");
         pTagTemp.text('Temperature: ');
         var spanTagTemp = $("<span>");
         spanTagTemp.attr('id', 'temperature-' + `${day}`);
