@@ -3,6 +3,7 @@ const apiKey = "1621a5fb00df3e233c5aa1c741011fd3";
 const dashboard = $("#dashboard");
 const fetchBtn = $("#fetchBtn");
 const searchEl = $("#search-history");
+const searchHistArr = Object.values(searchHistory); // Converts the values of the object(local storage) to an array.
 
 //  Variables Declaration
 var unitTypeEl = $('#unit-type');
@@ -11,15 +12,16 @@ var today = dayjs().format('MM/DD/YYYY');
 var unitSpeed = 'Mph';
 var unitTemp = '°F';
 var unitType = 'Imperial';
-// If there is no saved city, then renders an empty array.
-var searchHistory = [];
+// If there is no saved city, then renders an empty obj
+var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || {};
+
 
 $(function () {
     // It will render the local storage as soon as the page DOM is ready for JavaScript code to execute.
     renderSearchHistory();
 
     // Switch on, switchs unit.
-    $("#units").click(function () {
+    $("#units").click(function () { 
         if (this.checked === true) {
             unitTemp = '°C';
             unitSpeed = 'Km/h';
@@ -51,16 +53,15 @@ $(function () {
 })
 
 function renderSearchHistory() {
-    if (searchHistory.length >= 0) {
+    if (searchHistArr) {
         // If the local storage is not empty, then it will create a button for each element of the array and attach to the sidebar.
-        searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
-        for (i = 0; i < searchHistory.length; i++) {
+        for (i = 0; i < searchHistArr.length; i++) {
             var searchedCityEl = $('<button>');
             searchedCityEl.addClass('button btnCity btn btn-primary ms-3 mb-4');
             // Added the city name as the id so that onclick it will capture the id of the button that was clicked and use it as the city input.
-            searchedCityEl.attr('id', searchHistory[i]);
+            searchedCityEl.attr('id', searchHistArr[i]);
             searchedCityEl.attr('type', 'button');
-            searchedCityEl.text(searchHistory[i]);
+            searchedCityEl.text(searchHistArr[i]);
 
             searchEl.append(searchedCityEl);
         }
@@ -109,9 +110,9 @@ function storeSearchHistory() {
     }
     var searchCity = city;
     // Conditional statement to ensure that it will not store duplicates.
-    if (!searchHistory.includes(searchCity)) {
-        searchHistory.push(searchCity);
-        localStorage.setItem("searchHistory", JSON.stringify(searchHistory)); //Setting local storage
+    if (!searchHistArr.includes(searchCity)) {
+        searchHistArr.push(searchCity);
+        localStorage.setItem("searchHistory", JSON.stringify(searchHistArr)); //Setting local storage
     }
 }
 
