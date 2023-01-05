@@ -16,9 +16,7 @@ var searchHistory = [];
 
 $(function () {
     // It will render the local storage as soon as the page DOM is ready for JavaScript code to execute.
-    if (searchHistory !== null) {
-        renderSearchHistory();
-    }
+    renderSearchHistory();
 
     // Switch on, switchs unit.
     $("#units").click(function () {
@@ -53,20 +51,19 @@ $(function () {
 })
 
 function renderSearchHistory() {
-    // If the local storage is not empty, then it will create a button for each element of the array and attach to the sidebar.
-    searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
-    for (i = 0; i < searchHistory.length; i++) {
-        var searchedCityEl = $('<button>');
-        searchedCityEl.addClass('button btnCity btn btn-primary ms-3 mb-4');
-        // Added the city name as the id so that onclick it will capture the id of the button that was clicked and use it as the city input.
-        searchedCityEl.attr('id', searchHistory[i]);
-        searchedCityEl.attr('type', 'button');
-        searchedCityEl.text(searchHistory[i]);
+    if (searchHistory.length >= 0) {
+        // If the local storage is not empty, then it will create a button for each element of the array and attach to the sidebar.
+        searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
+        for (i = 0; i < searchHistory.length; i++) {
+            var searchedCityEl = $('<button>');
+            searchedCityEl.addClass('button btnCity btn btn-primary ms-3 mb-4');
+            // Added the city name as the id so that onclick it will capture the id of the button that was clicked and use it as the city input.
+            searchedCityEl.attr('id', searchHistory[i]);
+            searchedCityEl.attr('type', 'button');
+            searchedCityEl.text(searchHistory[i]);
 
-        searchEl.append(searchedCityEl);
-    }
-
-    if (searchHistory.length > 0) {
+            searchEl.append(searchedCityEl);
+        }
         // Only creates the delete button if the local storage has at least one element in it.
         var deleteHistory = $("<button>");
         deleteHistory.attr('type', 'button');
