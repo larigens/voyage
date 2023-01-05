@@ -14,11 +14,9 @@ var unitType = 'Imperial';
 // If there is no saved city, then renders an empty obj
 var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || {};
 
-
 $(function () {
     // It will render the local storage as soon as the page DOM is ready for JavaScript code to execute.
     renderSearchHistory();
-
     // Switch on, switchs unit.
     $("#units").click(function () { 
         if (this.checked === true) {
@@ -52,9 +50,10 @@ $(function () {
 })
 
 function renderSearchHistory() {
+    // If the local storage is not empty
     if (searchHistory.length >= 0) {
         const searchHistArr = Object.values(searchHistory); // Converts the values of the object(local storage) to an array.
-        // If the local storage is not empty, then it will create a button for each element of the array and attach to the sidebar.
+        // Then it will create a button for each element of the array and attach to the sidebar.
         for (i = 0; i < searchHistArr.length; i++) {
             var searchedCityEl = $('<button>');
             searchedCityEl.addClass('button btnCity btn btn-primary ms-3 mb-4');
@@ -104,6 +103,7 @@ function getCurrWeather() {
 };
 
 function storeSearchHistory() {
+    const searchHistArr = Object.values(searchHistory); // Converts the values of the object(local storage) to an array.
     if (typeof city === "object") {
         console.log(city);
         city = $('#city').val().trim(); // To store the city that was typed in the search bar without whitespace.
@@ -173,7 +173,6 @@ function renderCurrWeather(data) {
         spanTagWind.attr('id', 'wind-speed-' + `${day}`);
         pTagWind.append(spanTagWind)
 
-
         cardBody.append(cityNameEl);
         cardBody.append(weatherIconEl);
         cardBody.append(descriptionEl);
@@ -221,7 +220,6 @@ function renderCurrWeather(data) {
 function getFutureForecast(data) {
     var lat = data.coord.lat;
     var lon = data.coord.lon;
-
     var queryURLFuture = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=" + unitType + "&appid=" + apiKey;
 
     fetch(queryURLFuture)
