@@ -68,7 +68,7 @@ function renderSearchHistory() {
         }
     }
 
-    if (searchHistory.length > 0) {
+    if (searchHistory !== null && searchHistory.length > 0) {
         // Only creates the delete button if the local storage has at least one element in it.
         var deleteHistory = $("<button>");
         deleteHistory.attr('type', 'button');
