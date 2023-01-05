@@ -3,7 +3,6 @@ const apiKey = "1621a5fb00df3e233c5aa1c741011fd3";
 const dashboard = $("#dashboard");
 const fetchBtn = $("#fetchBtn");
 const searchEl = $("#search-history");
-const searchHistArr = Object.values(searchHistory); // Converts the values of the object(local storage) to an array.
 
 //  Variables Declaration
 var unitTypeEl = $('#unit-type');
@@ -53,7 +52,8 @@ $(function () {
 })
 
 function renderSearchHistory() {
-    if (searchHistArr) {
+    if (searchHistory.length >= 0) {
+        const searchHistArr = Object.values(searchHistory); // Converts the values of the object(local storage) to an array.
         // If the local storage is not empty, then it will create a button for each element of the array and attach to the sidebar.
         for (i = 0; i < searchHistArr.length; i++) {
             var searchedCityEl = $('<button>');
