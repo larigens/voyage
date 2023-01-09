@@ -17,7 +17,7 @@
 ![Contributors](https://img.shields.io/github/contributors/larigens/voyage?style=plastic&color=blueviolet)
 ![Forks](https://img.shields.io/github/forks/larigens/voyage?style=plastic&color=blueviolet)
 ![Stars](https://img.shields.io/github/stars/larigens/voyage?style=plastic&color=blueviolet)
-![Licence](https://img.shields.io/github/license/larigens/voyage?style=plastic&color=blueviolet)
+![Licence](https://img.shields.io/static/v1?label=License&message=Apache-2.0&color=blueviolet)
 ![Issues](https://img.shields.io/github/issues/larigens/voyage?style=plastic&color=blueviolet)
 
 ---
@@ -113,4 +113,4 @@ Our Code of Conduct follows the same principles as the [Contributor Covenant](ht
 
 ## License
 
-Please refer to the [LICENSE](https://choosealicense.com/licenses/mit/) in the repo.
+Please refer to the [LICENSE](https://choosealicense.com/licenses/apache-2.0/) in the repo.
